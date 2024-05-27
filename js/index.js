@@ -32,13 +32,16 @@ function exibir() {
       let marcador;
       switch (tabuleiro[i][j]) {
         case -1:
-          marcador = "X"; break;
+          marcador = "X";
+          break;
         case 1:
-          marcador = "O"; break;
-          default: marcador = "_"
+          marcador = "O";
+          break;
+        default:
+          marcador = "_";
       }
 
-      tabela += "<td>" + marcador +"</td>";
+      tabela += "<td>" + marcador + "</td>";
     }
 
     tabela += "</tr>";
@@ -62,9 +65,39 @@ function jogar() {
 
   console.table(tabuleiro);
   exibir();
+  checar();
 }
 
-function checar() {}
+function checar() {
+  // Linhas
+  for (let i = 0; i < 3; i++) {
+    let soma = 0;
+    soma = tabuleiro[i][0] + tabuleiro[i][1] + tabuleiro[i][2];
+
+    if (soma == 3 || soma == -3) {
+      aviso.innerHTML = "O jogador " + numeroJogador() + " ganhou!";
+    }
+  }
+  // Colunas
+  for (let i = 0; i < 3; i++) {
+    let soma = 0;
+    soma = tabuleiro[0][i] + tabuleiro[1][i] + tabuleiro[2][i];
+
+    if (soma == 3 || soma == -3) {
+      aviso.innerHTML = "O jogador " + numeroJogador() + " ganhou!";
+    }
+  }
+
+  // Diagonal  
+  for (let i = 0; i < 3; i++) {
+    let soma = 0;
+    soma = tabuleiro[0][0] + tabuleiro[1][1] + tabuleiro[2][2];
+
+    if (soma == 3 || soma == -3) {
+      aviso.innerHTML = "O jogador " + numeroJogador() + " ganhou!";
+    }
+  }
+}
 
 function numeroJogador() {
   return (jogador % 2) + 1;
