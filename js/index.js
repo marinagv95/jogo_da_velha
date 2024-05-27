@@ -29,15 +29,43 @@ function exibir() {
     tabela += "<tr>";
 
     for (let j = 0; j < 3; j++) {
-      tabela += "<td>_</td>";
+      let marcador;
+      switch (tabuleiro[i][j]) {
+        case -1:
+          marcador = "X"; break;
+        case 1:
+          marcador = "O"; break;
+          default: marcador = "_"
+      }
+
+      tabela += "<td>" + marcador +"</td>";
     }
 
     tabela += "</tr>";
   }
-  tabela += "</tabela>";
+  tabela += "</table>";
   board.innerHTML = tabela;
 }
 
-function jogar() {}
+function jogar() {
+  aviso.innerHTML = "Vez do jogador: " + numeroJogador();
+
+  linha = document.getElementById("linha").value - 1;
+  coluna = document.getElementById("coluna").value - 1;
+
+  if (tabuleiro[linha][coluna] == 0) {
+    tabuleiro[linha][coluna] = numeroJogador() == 1 ? 1 : -1;
+    jogador++;
+  } else {
+    aviso.innerHTML = "Esse campo já foi marcado";
+  }
+
+  console.table(tabuleiro);
+  exibir();
+}
 
 function checar() {}
+
+function numeroJogador() {
+  return (jogador % 2) + 1;
+}
